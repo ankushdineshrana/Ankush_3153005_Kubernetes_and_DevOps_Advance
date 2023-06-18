@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: nagp-app-config
+  labels:
+    app: nagp-app-config
+data:
+  APP_PORT: "8008"
+  DB_HOST:  "nagp-mysql-db-0.nagp-mysql-db.default.svc.cluster.local"
+  DB_USER:  "root"
+  DB_NAME:  "nagp_db"
+  DB_PORT:  "3306"

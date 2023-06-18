@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nagp-api-service
+spec:
+  replicas: 4
+  selector:
+    matchLabels:
+      app: nagp-pod
+  template:
+    metadata:
+      name: nagp-pod
+      labels:
+        app: nagp-pod
+    spec:
+      containers:
+        - name: nagp-pod
+          image: ankushdrana/node-app-nagp
+          envFrom: 
+          - configMapRef:
+              name: nagp-app-config
+          env:
+          - name: DB_PASSWORD
+            valueFrom:
+              secretKeyRef:
+                name: mysqlpwd
+                key: password
+          ports:
+            - name: http
+              containerPort: 8008
+              protocol: TCP

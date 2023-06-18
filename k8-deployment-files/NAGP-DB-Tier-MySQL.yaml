@@ -1,0 +1,80 @@
+apiVersion: storage.k8s.io/v1
+kind: StorageClass
+metadata:
+ name: sc-nagp-assignment
+provisioner: kubernetes.io/gce-pd
+parameters:
+ {}
+reclaimPolicy: Delete
+volumeBindingMode: Immediate
+allowVolumeExpansion: false
+ 
+---
+ 
+apiVersion: v1
+kind: Secret
+metadata:
+ name: mysqlpwd
+data:
+ password: YWRtaW4=
+
+---
+ 
+apiVersion: v1
+kind: Service
+metadata:
+ name: nagp-mysql-db
+ labels:
+   app: nagp-mysql-db
+spec:
+ type: ClusterIP
+ selector:
+   app: nagp-mysql-db
+ ports:
+   - port: 3306
+     protocol: TCP
+ clusterIP: "None"
+ 
+---
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+ name: nagp-mysql-db
+spec:
+ selector:
+   matchLabels:
+     app: nagp-mysql-db
+ serviceName: nagp-mysql-db
+ replicas: 1
+ template:
+   metadata:
+     labels:
+       app: nagp-mysql-db
+   spec:
+     terminationGracePeriodSeconds: 10
+     containers:
+     - name: nagp-mysql-db
+       image: mysql:8
+       ports:
+       - containerPort: 3306
+         name: nagp-mysql-db
+       env:
+       - name: MYSQL_ROOT_PASSWORD
+         valueFrom:
+           secretKeyRef:
+             name: mysqlpwd
+             key: password
+       - name: MYSQL_DATABASE
+         value: "nagp_db"
+       volumeMounts:
+       - mountPath: /var/lib/mysql
+         name: nagp-volume
+ volumeClaimTemplates:
+ - metadata:
+     name: nagp-volume
+   spec:
+     storageClassName: sc-nagp-assignment
+     accessModes: [ "ReadWriteOnce" ]
+     resources:
+       requests:
+         storage: 1Gi
