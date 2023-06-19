@@ -19,12 +19,12 @@ Steps to Redploy Cluster:
         i.e. start with 1-NAGP-DB-Tier-MySQL.yaml then 2-NAGP-App-ConfigMap.yaml etc
 4. Open bash terminal for sql stateful set -- 'kubectl exec -it nagp-mysql-db-0 bash'
 5. Create Table and insert data like this--
-    a. mysql -u root -p
-    b. Enter Password: admin
-    c. use nagp_db;
-    d. CREATE TABLE IF NOT EXISTS nagp_table (assignment_id int NOT NULL AUTO_INCREMENT, assignment_name VARCHAR(255) NOT NULL,      status VARCHAR(255), PRIMARY KEY (task_id));
-    e. INSERT INTO nagp_table (assignment_name, status) VALUES ('Container Orchestration','complete');
-    f. Enter random entries like above
+    - mysql -u root -p
+    - Enter Password: admin
+    - use nagp_db;
+    - CREATE TABLE IF NOT EXISTS nagp_table (assignment_id int NOT NULL AUTO_INCREMENT, assignment_name VARCHAR(255) NOT NULL,      status VARCHAR(255), PRIMARY KEY (task_id));
+    - INSERT INTO nagp_table (assignment_name, status) VALUES ('Container Orchestration','complete');
+    - Enter random entries like above
 4. Check the External Node IP with command 'kubectl get node -o wide'
 5. Hit the health end-point http://xx.xx.xx.xx:30080/health
 6. Hit the data endpoint http://xx.xx.xx.xx:30080/getdata
