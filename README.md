@@ -9,6 +9,8 @@ Check Health Of API Tier: GET http://34.128.69.15:30080/health
 Fetch Data from DataBase Tier: GET http://34.128.69.15:30080/getdata
 
 Video Links: https://drive.google.com/drive/folders/1V1QmiLuNGPPWt9PivIqokh2fW7ArBktV?usp=sharing
+  -  There are two videos one is for '1-Cluster Demo' it has all details of the assignment
+  -  '2-Code&YAML-Overview' gives overview about all the code and yaml files
 
 Steps to Redploy Cluster:
 1. Spin a standard K8 cluster on GCP
