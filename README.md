@@ -7,3 +7,6 @@ Docker Image Link (API Tier): https://hub.docker.com/repository/docker/ankushdra
 Check Health Of API Tier: GET http://34.128.69.15:30080/health
 
 Fetch Data from DataBase Tier: GET http://34.128.69.15:30080/getdata
+
+Video Links: https://drive.google.com/drive/folders/1V1QmiLuNGPPWt9PivIqokh2fW7ArBktV?usp=sharing
+
